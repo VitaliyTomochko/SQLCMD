@@ -2,6 +2,7 @@ package com.vtom.sqlcmd.Model;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface DatabaseManager {
     void connect(
@@ -11,11 +12,11 @@ public interface DatabaseManager {
 
     void isConnected() throws JDBCDatabaseManager.SqlCmdExeption;
 
-    List<Data> getTableData(String tableName) throws JDBCDatabaseManager.SqlCmdExeption, SQLException;
+    Map<String, List<Object>> getTableData(String tableName) throws JDBCDatabaseManager.SqlCmdExeption, SQLException;
 
     List<Data> getTableNames() throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
 
-    void create(String newTableName, Data input) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    void create(String newTableName, Data[] input) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
 
     void update(String tableName, String colomnNameOLd, Object oldValue, String colomnNameNew, Object newValue) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
 

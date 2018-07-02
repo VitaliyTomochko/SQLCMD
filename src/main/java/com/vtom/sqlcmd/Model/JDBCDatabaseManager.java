@@ -1,8 +1,7 @@
 package com.vtom.sqlcmd.Model;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class JDBCDatabaseManager implements DatabaseManager {
     private Connection connection;
@@ -25,17 +24,22 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public List<Data> getTableData(String tableName) throws SqlCmdExeption, SQLException {
+    public Map<String, List<Object>> getTableData(String tableName) throws SqlCmdExeption, SQLException {
         isConnected();
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM " + tableName);
         ResultSetMetaData rsmd = rs.getMetaData();
-        List<Data> data = new ArrayList<>();
-        int count = 1;
+        //  Map<Set<String>, List<Object>> data = new HashMap<>();
+        Map<String, List<Object>> data = new HashMap<>();
+        List<Object> values = new ArrayList<>();
+
+
         while (rs.next()) {
-            if (count <= rsmd.getColumnCount())
-                data.add(new Data(rsmd.getColumnName(count), rs.getObject(count)));
-            count++;
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    data.computeIfAbsent(rsmd.getColumnName(i), ignored -> new ArrayList<>())
+                            .addAll(Arrays.asList(rs.getObject(i)));
+               // values.add(rs.getObject(i));
+            }
         }
         rs.close();
         st.close();
@@ -57,13 +61,14 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void create(String newTableName, Data input) throws SQLException, SqlCmdExeption {
+    public void create(String newTableName, Data[] input) throws SQLException, SqlCmdExeption {
         isConnected();
         Statement st = connection.createStatement();
+        for (Data elem : input) {
+            System.out.println(elem.getName());
+        }
         String sql = "CREATE TABLE IF NOT EXISTS " + newTableName + " (\n"
-                + "	id integer PRIMARY KEY,\n"
-                + "	name text NOT NULL,\n"
-                + "	capacity real\n"
+             /* + input.getName()*/
                 + ");";
         st.execute(sql);
         st.close();
@@ -106,10 +111,10 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void insert(String tableName, String login, Object pass) throws SQLException, SqlCmdExeption {
+    public void insert(String tableName, String colomn, Object value) throws SQLException, SqlCmdExeption {
         isConnected();
         Statement st = connection.createStatement();
-        st.executeUpdate("INSERT INTO " + tableName + "(name,password) VALUES('" + login + "','" + pass + "')");
+        st.executeUpdate("INSERT INTO " + tableName + "(" + colomn + "," + value + ") VALUES('" + colomn + "','" + value + "')");
         st.close();
     }
 

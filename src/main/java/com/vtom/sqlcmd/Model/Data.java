@@ -8,6 +8,16 @@ public class Data {
 
     }
 
+    public Data(String name) {
+        this.name = name;
+        this.value="";
+    }
+
+    public Data(Object value) {
+        this.name="";
+        this.value = value;
+    }
+
     public Data(String name, Object value) {
         this.name = name;
         this.value = value;
