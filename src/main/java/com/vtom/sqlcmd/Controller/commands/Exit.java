@@ -8,12 +8,13 @@ public class Exit implements ICommand {
 
     @Override
     public boolean canProcess(String command) {
-         return command.startsWith("exit");
+        return command.startsWith("exit");
     }
 
     @Override
     public String process(String command) {
-        System.exit(0);
-        return "";
+
+        throw new ExitException();
     }
+
 }

@@ -17,7 +17,7 @@ public class Controller {
     public Controller(DatabaseManager manager, View view) {
         this.manager = manager;
         this.view = view;
-        FunctionFactory factory = new FunctionFactory(manager, view);
+        FunctionFactory factory = new FunctionFactory(manager);
 
         commands = new ICommand[]{
                 new Connect(factory.getConnectFunction())
@@ -46,8 +46,8 @@ public class Controller {
         view.print("Для під'єднання до бази даних введіть ім'я бази даних," +
                 " ім'я користувача та пароль у форматі: connect|database|username|password");
 
+        Scanner s = new Scanner(System.in);
         while (true) {
-            Scanner s = new Scanner(System.in);
             String inputCommand = s.nextLine();
             String result = Arrays.asList(commands)
                     .stream()

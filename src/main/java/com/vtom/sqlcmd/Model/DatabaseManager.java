@@ -10,21 +10,21 @@ public interface DatabaseManager {
                  String DB_USER,
                  String DB_PASSWORD) throws SQLException, ClassNotFoundException;
 
-    void isConnected() throws JDBCDatabaseManager.SqlCmdExeption;
+    void isConnected() throws JDBCDatabaseManager.SqlCmdException;
 
-    Map<String, List<Object>> getTableData(String tableName) throws JDBCDatabaseManager.SqlCmdExeption, SQLException;
+    List<Map<String, Object>> getTableData(String tableName) throws JDBCDatabaseManager.SqlCmdException, SQLException;
 
-    List<Data> getTableNames() throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    List<String> getTableNames();
 
-    void create(String newTableName, Data[] input) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    void create(String newTableName, String input) throws SQLException, JDBCDatabaseManager.SqlCmdException;
 
-    void update(String tableName, String colomnNameOLd, Object oldValue, String colomnNameNew, Object newValue) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    void update(String tableName, String colomnNameOLd, Object oldValue, String colomnNameNew, Object newValue) throws SQLException, JDBCDatabaseManager.SqlCmdException;
 
-    void clear(String tableName) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    void clear(String tableName) throws SQLException, JDBCDatabaseManager.SqlCmdException;
 
-    void drop(String tableName) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    void drop(String tableName) throws SQLException, JDBCDatabaseManager.SqlCmdException;
 
-    void delete(String tableName, String name, Object value) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    void delete(String tableName, String name, Object value) throws SQLException, JDBCDatabaseManager.SqlCmdException;
 
-    void insert(String tableName, String login, Object pass) throws SQLException, JDBCDatabaseManager.SqlCmdExeption;
+    void insert(String tableName, String login, Object pass) throws SQLException, JDBCDatabaseManager.SqlCmdException;
 }
