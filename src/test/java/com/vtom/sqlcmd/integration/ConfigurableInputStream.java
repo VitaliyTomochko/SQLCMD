@@ -1,4 +1,4 @@
-package integration;
+package com.vtom.sqlcmd.integration;
 
 import java.io.IOException;
 import java.io.InputStream;

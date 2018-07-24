@@ -30,10 +30,20 @@ public class JDBCDatabaseManager implements DatabaseManager {
         ResultSet rs = st.executeQuery("SELECT * FROM " + tableName);
         ResultSetMetaData rsmd = rs.getMetaData();
         List<Map<String, Object>> result = new LinkedList<>();
+        Map<String, Object> data;
+
+
         while (rs.next()) {
-            Map<String, Object> data = new LinkedHashMap<>();
+             data = new LinkedHashMap<>();
             for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                 data.put(rsmd.getColumnName(i), rs.getObject(i));
+            }
+            result.add(data);
+        }
+        if (result.isEmpty()){
+            data = new LinkedHashMap<>();
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                data.put(rsmd.getColumnName(i), "");
             }
             result.add(data);
         }
@@ -41,7 +51,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
         st.close();
         return result;
     }
-
     @Override
     public List<String> getTableNames() {
         try {
@@ -67,7 +76,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         // System.out.println(input);
         String sql = "CREATE TABLE IF NOT EXISTS " + newTableName + " (\n"
                 + input
-                + ");";
+                + " );";
         st.execute(sql);
         st.close();
     }

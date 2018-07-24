@@ -14,7 +14,6 @@ public class Exit implements ICommand {
     @Override
     public String process(String command) {
 
-        throw new ExitException();
+        throw new ExitException("програма завершила роботу");
     }
-
 }

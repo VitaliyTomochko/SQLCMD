@@ -1,7 +1,5 @@
 package com.vtom.sqlcmd.Controller.commands;
 
-import com.vtom.sqlcmd.View.View;
-
 public class NotExisted implements ICommand {
     public NotExisted() {
     }

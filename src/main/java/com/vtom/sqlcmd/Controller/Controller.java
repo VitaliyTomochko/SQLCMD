@@ -49,13 +49,19 @@ public class Controller {
         Scanner s = new Scanner(System.in);
         while (true) {
             String inputCommand = s.nextLine();
-            String result = Arrays.asList(commands)
-                    .stream()
-                    .filter(cmd -> cmd.canProcess(inputCommand))
-                    .findFirst()
-                    .orElse(new NotExisted())
-                    .process(inputCommand);
-
+            String result;
+            try {
+                result = Arrays.asList(commands)
+                        .stream()
+                        .filter(cmd -> cmd.canProcess(inputCommand))
+                        .findFirst()
+                        .orElse(new NotExisted())
+                        .process(inputCommand);
+            }catch (Exception e){
+                result=e.getMessage();
+                view.print(result);
+                throw e;
+            }
             view.print(result);
             view.print("Введи команду (або help для допомоги) :");
         }
