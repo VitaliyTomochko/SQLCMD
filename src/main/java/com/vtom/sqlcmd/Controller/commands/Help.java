@@ -17,7 +17,7 @@ public class Help implements ICommand {
         buffer.append("Команда для получения содержимого указанной таблицы \n\tfind   |tableName\n");
         buffer.append("Команда очищає вміст зазначеної (всієї) таблиці \n\tclear  |tableName\n");
         buffer.append("Команда для підключення до відповідної БД \n\tconnect|databaseName|userName|password\n");
-        buffer.append("Команда створює нову таблицю з заданими полями \n\tcreate |tableName |column1 |column2| ... | columnN\n");
+        buffer.append("Команда створює нову таблицю з заданими полями  \n\tcreate |tableName |column1 |column2| ... | columnN \n\tВведіть команду в форматі SQL запиту ***create|tablename|id SERIAL NOT NULL PRIMARY KEY|username varchar(225) NOT NULL UNIQUE| password varchar(225)***\n");
         buffer.append("Команда оновить запис, встановивши значення column2 = value2, для якої дотримується умова column1 = value1 \n\tupdate |tableName |column1 |value1 | column2 | value2\n");
         buffer.append("Команда для вставки одного рядка в задану таблицю \n\tinsert |tableName |column1 |value1 | column2 | value2 | ... | columnN | valueN\n");
         buffer.append("Команда видаляє одну або кілька записів для яких виконується умова column = value \n\tdelete |tableName |column  |value\n");
